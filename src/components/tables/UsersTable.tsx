@@ -1,11 +1,11 @@
 import { useState } from "react";
 import { Table, Badge, Dropdown } from "flowbite-react";
 import { HiOutlineDotsVertical } from "react-icons/hi";
-import { FaEye, FaBan, FaTimes, FaDollarSign, FaComments, FaUser, FaGlobe } from "react-icons/fa";
+import { FaEye, FaBan, FaTimes, FaDollarSign, FaComments } from "react-icons/fa";
 
 const UsersTable = () => {
   const [currentPage, setCurrentPage] = useState(1);
-  const [selectedUser, setSelectedUser] = useState(null);
+  const [selectedUser, setSelectedUser] = useState<User | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const itemsPerPage = 20;
 
@@ -33,8 +33,17 @@ const UsersTable = () => {
   const handlePreviousPage = () => {
     if (currentPage > 1) setCurrentPage(currentPage - 1);
   };
-
-  const handleViewUser = (user) => {
+  type User = {
+    userId: string;
+    username: string;
+    email: string;
+    country: string;
+    status: string;
+    joined: string;
+    dob: string;
+    fullName: string;
+  };
+  const handleViewUser = (user: User) => {
     setSelectedUser(user);
     setIsModalOpen(true);
     window.history.pushState({}, "", `?tab=${user.userId}`);
