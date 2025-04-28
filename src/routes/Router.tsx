@@ -1,59 +1,148 @@
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore
-import { lazy } from 'react';
-import { Navigate, createBrowserRouter } from 'react-router';
-import ChatApp from 'src/components/chat/ChatApp';
-import Loadable from 'src/layouts/full/shared/loadable/Loadable';
+import { lazy, Suspense } from 'react';
+import { RouteObject } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
 
-/* ***Layouts**** */
-const FullLayout = Loadable(lazy(() => import('../layouts/full/FullLayout')));
-const BlankLayout = Loadable(lazy(() => import('../layouts/blank/BlankLayout')));
+// Layouts
+const FullLayout = lazy(() => import('../layouts/full/FullLayout'));
+const BlankLayout = lazy(() => import('../layouts/blank/BlankLayout'));
 
-// Dashboard
-const Dashboard = Loadable(lazy(() => import('../views/dashboards/Dashboard')));
+// Views
+const Dashboard = lazy(() => import('../views/dashboards/Dashboard'));
+const ChatApp = lazy(() => import('../views/chat/ChatApp'));
+const Table = lazy(() => import('../views/tables/Table'));
+const Form = lazy(() => import('../views/form/Form'));
+const Solar = lazy(() => import('../views/icons/Solar'));
+const SamplePage = lazy(() => import('../views/sample-page/SamplePage'));
+const ProfileSettings = lazy(() => import('../views/settings/ProfileSettings'));
+const SystemSettings = lazy(() => import('../views/settings/SystemSettings'));
+const Login = lazy(() => import('../views/auth/login/Login'));
+const Error = lazy(() => import('../views/auth/error/Error'));
 
-// utilities
-// const Typography = Loadable(lazy(() => import('../views/typography/Typography')));
-const Table = Loadable(lazy(() => import('../views/tables/Table')));
-const Form = Loadable(lazy(() => import('../views/forms/Form')));
-const Shadow = Loadable(lazy(() => import('../views/shadows/Shadow')));
+// Protected Route
+import ProtectedRoute from './ProtectedRoute';
 
-// icons
-const Solar = Loadable(lazy(() => import('../views/icons/Solar')));
+// Loading component
+const LoadingFallback = () => (
+  <div className="flex items-center justify-center min-h-screen">
+    <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-primary"></div>
+  </div>
+);
 
-// authentication
-const Login = Loadable(lazy(() => import('../views/auth/login/Login')));
-const Register = Loadable(lazy(() => import('../views/auth/register/Register')));
-const SamplePage = Loadable(lazy(() => import('../views/sample-page/SamplePage')));
-const Error = Loadable(lazy(() => import('../views/auth/error/Error')));
-
-const Router = [
+const Router: RouteObject[] = [
   {
     path: '/',
-    element: <FullLayout />,
+    element: (
+      <ProtectedRoute>
+        <Suspense fallback={<LoadingFallback />}>
+          <FullLayout />
+        </Suspense>
+      </ProtectedRoute>
+    ),
     children: [
-      { path: '/', exact: true, element: <Dashboard /> },
-      { path: '/chats', exact: true, element: <ChatApp /> },
-      { path: '/users', exact: true, element: <Table /> },
-      { path: '/ui/form', exact: true, element: <Form /> },
-      { path: '/ui/shadow', exact: true, element: <Shadow /> },
-      { path: '/icons/solar', exact: true, element: <Solar /> },
-      { path: '/sample-page', exact: true, element: <SamplePage /> },
+      { 
+        path: '/', 
+        element: <Navigate to="/dashboard" replace /> 
+      },
+      { 
+        path: '/dashboard', 
+        element: (
+          <Suspense fallback={<LoadingFallback />}>
+            <Dashboard />
+          </Suspense>
+        ) 
+      },
+      { 
+        path: '/chats', 
+        element: (
+          <Suspense fallback={<LoadingFallback />}>
+            <ChatApp />
+          </Suspense>
+        ) 
+      },
+      { 
+        path: '/users', 
+        element: (
+          <Suspense fallback={<LoadingFallback />}>
+            <Table />
+          </Suspense>
+        ) 
+      },
+      { 
+        path: '/ui/form', 
+        element: (
+          <Suspense fallback={<LoadingFallback />}>
+            <Form />
+          </Suspense>
+        ) 
+      },
+      { 
+        path: '/icons/solar', 
+        element: (
+          <Suspense fallback={<LoadingFallback />}>
+            <Solar />
+          </Suspense>
+        ) 
+      },
+      { 
+        path: '/sample-page', 
+        element: (
+          <Suspense fallback={<LoadingFallback />}>
+            <SamplePage />
+          </Suspense>
+        ) 
+      },
+      { 
+        path: '/settings',
+        children: [
+          { 
+            path: 'profile', 
+            element: (
+              <Suspense fallback={<LoadingFallback />}>
+                <ProfileSettings />
+              </Suspense>
+            ) 
+          },
+          { 
+            path: 'system', 
+            element: (
+              <Suspense fallback={<LoadingFallback />}>
+                <SystemSettings />
+              </Suspense>
+            ) 
+          },
+        ]
+      },
       { path: '*', element: <Navigate to="/auth/404" /> },
     ],
   },
   {
-    path: '/',
-    element: <BlankLayout />,
+    path: '/auth',
+    element: (
+      <Suspense fallback={<LoadingFallback />}>
+        <BlankLayout />
+      </Suspense>
+    ),
     children: [
-      { path: '/auth/login', element: <Login /> },
-      { path: '/auth/register', element: <Register /> },
-      { path: '404', element: <Error /> },
-      { path: '/auth/404', element: <Error /> },
+      { 
+        path: 'login', 
+        element: (
+          <Suspense fallback={<LoadingFallback />}>
+            <Login />
+          </Suspense>
+        ) 
+      },
+      { 
+        path: '404', 
+        element: (
+          <Suspense fallback={<LoadingFallback />}>
+            <Error />
+          </Suspense>
+        ) 
+      },
       { path: '*', element: <Navigate to="/auth/404" /> },
     ],
   },
 ];
 
-const router = createBrowserRouter(Router, { basename: '/' });
-export default router;
+export default Router;
+

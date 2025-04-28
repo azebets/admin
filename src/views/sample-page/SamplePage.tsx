@@ -1,19 +1,13 @@
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore
 import React from 'react';
-import CardBox from '../../components/shared/CardBox';
 
-
-const SamplePage = () => {
+const SamplePage: React.FC = () => {
   return (
-    <CardBox>
-    <h5 className="card-title">Sample page</h5>
-    <p>
-      Lorem Ipsum is simply dummy text of the printing and typesetting
-      industry. Lorem Ipsum has been the industry's standard dummy text ever
-      since the 1500s
-    </p>
-  </CardBox>
+    <div className="p-4">
+      <h1 className="text-2xl font-bold mb-4">Sample Page</h1>
+      <div className="bg-white dark:bg-gray-800 p-4 rounded-lg shadow">
+        <p>This is a sample page content.</p>
+      </div>
+    </div>
   );
 };
 

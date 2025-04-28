@@ -1,10 +1,14 @@
-// import Logo from "/src/assets/images/logos/logo.svg";
-import LogoIcon from 'src/assets/logo.png'
-import { Link } from "react-router";
+import React from 'react';
+import { Link } from 'react-router-dom';
+
 const FullLogo = () => {
   return (
-    <Link to={"/"}>
-      <img src={LogoIcon} alt="logo" className="block" />
+    <Link to="/" className="flex items-center">
+      <img 
+        src="/assets/logo.png" // Update this path to your actual logo path
+        alt="Logo"
+        className="h-10 w-auto"
+      />
     </Link>
   );
 };

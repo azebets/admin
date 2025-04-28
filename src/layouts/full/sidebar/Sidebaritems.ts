@@ -23,79 +23,50 @@ import { uniqueId } from "lodash";
 
 const SidebarContent: MenuItem[] = [
   {
-    heading: "HOME",
+    heading: "DASHBOARD",
     children: [
       {
         name: "Dashboard",
-        icon: "solar:widget-add-line-duotone",
+        icon: "solar:home-2-bold-duotone",
         id: uniqueId(),
-        url: "/",
+        url: "/dashboard",
       },
     ],
   },
   {
-    heading: "UTILITIES",
+    heading: "MANAGEMENT",
     children: [
       {
-        name: "Chats",
-        icon: "solar:text-circle-outline",
-        id: uniqueId(),
-        url: "/chats",
-      },
-      {
-        name: "Users",
-        icon: "solar:bedside-table-3-linear",
+        name: "User Management",
+        icon: "solar:users-group-rounded-bold-duotone",
         id: uniqueId(),
         url: "/users",
       },
-      // {
-      //   name: "Form",
-      //   icon: "solar:password-minimalistic-outline",
-      //   id: uniqueId(),
-      //   url: "/ui/form",
-      // },
-      // {
-      //   name: "Shadow",
-      //   icon: "solar:airbuds-case-charge-outline",
-      //   id: uniqueId(),
-      //   url: "/ui/shadow",
-      // },
+      {
+        name: "Chat Management",
+        icon: "solar:chat-round-dots-bold-duotone",
+        id: uniqueId(),
+        url: "/chats",
+      },
     ],
   },
   {
-    heading: "AUTH",
+    heading: "SETTINGS",
     children: [
       {
-        name: "Login",
-        icon: "solar:login-2-linear",
+        name: "Profile Settings",
+        icon: "solar:user-id-bold-duotone",
         id: uniqueId(),
-        url: "/auth/login",
+        url: "/settings/profile",
       },
-      // {
-      //   name: "Register",
-      //   icon: "solar:shield-user-outline",
-      //   id: uniqueId(),
-      //   url: "/auth/register",
-      // },
+      {
+        name: "System Settings",
+        icon: "solar:settings-bold-duotone",
+        id: uniqueId(),
+        url: "/settings/system",
+      },
     ],
   },
-  // {
-  //   heading: "EXTRA",
-  //   children: [
-  //     {
-  //       name: "Icons",
-  //       icon: "solar:smile-circle-outline",
-  //       id: uniqueId(),
-  //       url: "/icons/solar",
-  //     },
-  //     {
-  //       name: "Sample Page",
-  //       icon: "solar:notes-minimalistic-outline",
-  //       id: uniqueId(),
-  //       url: "/sample-page",
-  //     },
-  //   ],
-  // },
 ];
 
 export default SidebarContent;

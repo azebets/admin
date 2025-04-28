@@ -1,7 +1,9 @@
 
+import React from 'react';
 import Chart from "react-apexcharts";
 import { Icon } from "@iconify/react";
 import { Badge } from "flowbite-react";
+import CardBox from '../shared/CardBox';
 
 const TotalIncome = () => {
 
@@ -63,9 +65,9 @@ const TotalIncome = () => {
         </div>
         <div className="flex">
           <div className="flex-1">
-            <p className="text-xl text-dark font-medium mb-2">$680</p>
+            <p className="text-xl text-dark font-medium mb-2">$0</p>
             <Badge className={`bg-lightsuccess text-success`}>
-              +18%
+              +0%
             </Badge>
             <p className="text-success text-xs"></p>
           </div>

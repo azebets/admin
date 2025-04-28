@@ -13,13 +13,13 @@ const MobileSidebar = () => {
     <>
       <div>
         <Sidebar
-          className="fixed menu-sidebar pt-0 bg-white dark:bg-darkgray transition-all"
+          className="fixed menu-sidebar pt-0 bg-[#1f2330] transition-all"
           aria-label="Sidebar with multi-level dropdown example"
         >
-          <div className="px-5 py-4 pb-7 flex items-center sidebarlogo">
+          <div className="px-5 py-4 pb-7 flex items-center sidebarlogo bg-[#1f2330]">
             <FullLogo />
           </div>
-          <SimpleBar className="h-[calc(100vh_-_242px)]">
+          <SimpleBar className="h-[calc(100vh_-_242px)]" style={{ backgroundColor: '#1f2330' }}>
             <Sidebar.Items className="px-5 mt-2">
               <Sidebar.ItemGroup className="sidebar-nav hide-menu">
                 {SidebarContent &&

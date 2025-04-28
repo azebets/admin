@@ -1,3 +1,4 @@
+
 import { FC } from 'react';
 import { Outlet } from "react-router";
 import ScrollToTop from 'src/components/shared/ScrollToTop';
@@ -8,33 +9,21 @@ import Header from './header/Header';
 
 const FullLayout: FC = () => {
   return (
-      <>
-    <div className="flex w-full min-h-screen dark:bg-darkgray">
-      <div className="page-wrapper flex w-full  ">
-        {/* Header/sidebar */}
-            <Sidebar /> 
-        <div className="page-wrapper-sub flex flex-col w-full dark:bg-darkgray">
-          {/* Top Header  */}
-           <Header/>
-
-          <div
-            className={`bg-lightgray dark:bg-dark  h-full rounded-bb`}
-          >
-            {/* Body Content  */}
-            <div
-              className={`w-full`}
-            >
-              <ScrollToTop>
-                <div className="container py-30">
+    <div className="flex w-full min-h-screen bg-white">
+      <Sidebar />
+      <div className="flex-1 ml-[280px]">
+        <Header />
+        <div className="bg-lightgray h-full rounded-bb">
+          <div className="max-w-[1200px] mx-auto px-6">
+            <ScrollToTop>
+              <div className="py-30">
                 <Outlet/>
-                </div>
-              </ScrollToTop>
-            </div>
+              </div>
+            </ScrollToTop>
           </div>
         </div>
       </div>
     </div>
-      </>
   );
 };
 

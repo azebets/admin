@@ -1,168 +1,77 @@
-import { Badge } from "flowbite-react";
-import { Table } from "flowbite-react";
+import React, { useEffect, useState } from 'react';
+import { Badge, Table } from "flowbite-react";
 import SimpleBar from "simplebar-react";
+import { api } from 'src/services/api/api';
 
-// import product1 from "/src/assets/images/products/dash-prd-1.jpg";
-// import product2 from "/src/assets/images/products/dash-prd-2.jpg";
-// import product3 from "/src/assets/images/products/dash-prd-3.jpg";
-// import product4 from "/src/assets/images/products/dash-prd-4.jpg";
-
+// Game icons
 import crashIcon from "/src/assets/images/games/crash-icon.png";
 import diceIcon from "/src/assets/images/games/dice-icon.png";
 import minesIcon from "/src/assets/images/games/mines-icon.png";
 import plinkoIcon from "/src/assets/images/games/plinko-icon.png";
 import hiloIcon from "/src/assets/images/games/hilo-icon.png";
 
-// const ProductRevenueOld = () => {
-//   const ProductTableData = [
-//     {
-//       img: product1,
-//       name: "Minecraf App",
-//       seller: "Jason Roy",
-//       process: "73.2%",
-//       statuscolor: "text-success",
-//       statusbg: "bg-lightsuccess",
-//       statustext: "Low",
-//     },
-//     {
-//       img: product2,
-//       name: "Web App Project",
-//       seller: "Mathew Flintoff",
-//       process: "73.2%",
-//       statuscolor: "text-warning",
-//       statusbg: "bg-lightwarning",
-//       statustext: "Medium",
-//     },
-//     {
-//       img: product3,
-//       name: "Modernize Dashboard",
-//       seller: "Anil Kumar",
-//       process: "73.2%",
-//       statuscolor: "text-secondary",
-//       statusbg: "bg-lightsecondary",
-//       statustext: "Very High",
-//     },
-//     {
-//       img: product4,
-//       name: "Dashboard Co",
-//       seller: "George Cruize",
-//       process: "73.2%",
-//       statuscolor: "text-error",
-//       statusbg: "bg-lighterror",
-//       statustext: "High",
-//     },
-//   ];
+interface GameWin {
+  game: string;
+  player: string;
+  payout: number;
+  winAmount: number;
+  userId: string;
+  betId: string;
+  timestamp: string;
+}
 
-//   return (
-//     <>
-//       <div className="rounded-xl dark:shadow-dark-md shadow-md bg-white dark:bg-darkgray pt-6 px-0 relative w-full break-words">
-//         <div className="px-6">
-//           <h5 className="card-title mb-6">Top Ranking Games</h5>
-//         </div>
-//         <SimpleBar className="max-h-[450px]">
-//           <div className="overflow-x-auto">
-//             <Table hoverable>
-//               <Table.Head>
-//                 <Table.HeadCell className="p-6">Assigned</Table.HeadCell>
-//                 <Table.HeadCell>Progress</Table.HeadCell>
-//                 <Table.HeadCell>Priority</Table.HeadCell>
-//                 <Table.HeadCell>Budget</Table.HeadCell>
-//               </Table.Head>
-//               <Table.Body className="divide-y divide-border dark:divide-darkborder ">
-//                 {ProductTableData.map((item, index) => (
-//                   <Table.Row key={index}>
-//                     <Table.Cell className="whitespace-nowrap ps-6">
-//                       <div className="flex gap-3 items-center">
-//                         <img
-//                           src={item.img}
-//                           alt="icon"
-//                           className="h-[60px] w-[60px] rounded-md"
-//                         />
-//                         <div className="truncat line-clamp-2 sm:text-wrap max-w-56">
-//                           <h6 className="text-sm">{item.name}</h6>
-//                           <p className="text-xs ">{item.seller}</p>
-//                         </div>
-//                       </div>
-//                     </Table.Cell>
-//                     <Table.Cell>
-//                       <div className="me-5">
-//                         <p className="text-base">{item.process}</p>
-//                       </div>
-//                     </Table.Cell>
-//                     <Table.Cell>
-//                       <Badge className={`${item.statusbg} ${item.statuscolor}`}>
-//                         {item.statustext}
-//                       </Badge>
-//                     </Table.Cell>
-//                     <Table.Cell>
-//                       <h4>$3.5k</h4>
-//                     </Table.Cell>
-//                   </Table.Row>
-//                 ))}
-//               </Table.Body>
-//             </Table>
-//           </div>
-//         </SimpleBar>
-//       </div>
-//     </>
-//   );
-// };
+const gameIcons: { [key: string]: string } = {
+  crash: crashIcon,
+  dice: diceIcon,
+  mines: minesIcon,
+  plinko: plinkoIcon,
+  hilo: hiloIcon,
+};
 
 const ProductRevenue = () => {
-  const TableData = [
-    {
-      img: crashIcon,
-      game: "Crash",
-      player: "John Doe",
-      payout: "2.5x",
-      winAmount: "$1,200",
-    },
-    {
-      img: diceIcon,
-      game: "Dice",
-      player: "Jane Smith",
-      payout: "3.1x",
-      winAmount: "$900",
-    },
-    {
-      img: minesIcon,
-      game: "Mines",
-      player: "Michael Brown",
-      payout: "1.8x",
-      winAmount: "$750",
-    },
-    {
-      img: plinkoIcon,
-      game: "Plinko",
-      player: "Emily Davis",
-      payout: "4.2x",
-      winAmount: "$1,500",
-    },
-    {
-      img: hiloIcon,
-      game: "Hilo",
-      player: "Chris Wilson",
-      payout: "2.0x",
-      winAmount: "$1,000",
-    },
-    {
-      img: crashIcon,
-      game: "Crash",
-      player: "Sarah Johnson",
-      payout: "3.5x",
-      winAmount: "$1,800",
-    },
-    {
-      img: diceIcon,
-      game: "Dice",
-      player: "David Lee",
-      payout: "2.7x",
-      winAmount: "$1,100",
-    },
-  ];
+  const [highestWins, setHighestWins] = useState<GameWin[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchHighestWins = async () => {
+      try {
+        const response = await api.get('/admin/dashboard/highest-wins');
+        setHighestWins(response.data.wins);
+      } catch (error) {
+        console.error('Error fetching highest wins:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchHighestWins();
+  }, []);
+
+  if (loading) {
+    return (
+      <div className="rounded-lg shadow-md bg-white pt-6 px-0 relative w-full break-words">
+        <div className="px-6">
+          <h5 className="card-title mb-6">Highest Wins</h5>
+        </div>
+        <SimpleBar className="max-h-[450px]">
+          <div className="animate-pulse p-4">
+            {[...Array(7)].map((_, index) => (
+              <div key={index} className="flex items-center space-x-4 mb-4">
+                <div className="h-10 w-10 bg-gray-200 rounded-md"></div>
+                <div className="flex-1 space-y-2">
+                  <div className="h-4 bg-gray-200 rounded w-1/4"></div>
+                  <div className="h-3 bg-gray-200 rounded w-1/2"></div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </SimpleBar>
+      </div>
+    );
+  }
 
   return (
-    <div className="rounded-xl dark:shadow-dark-md shadow-md bg-white dark:bg-darkgray pt-6 px-0 relative w-full break-words">
+    <div className="rounded-lg shadow-md bg-white pt-6 px-0 relative w-full break-words">
       <div className="px-6">
         <h5 className="card-title mb-6">Highest Wins</h5>
       </div>
@@ -175,31 +84,31 @@ const ProductRevenue = () => {
               <Table.HeadCell>Payout</Table.HeadCell>
               <Table.HeadCell>Win Amount</Table.HeadCell>
             </Table.Head>
-            <Table.Body className="divide-y divide-border dark:divide-darkborder">
-              {TableData.map((item, index) => (
-                <Table.Row key={index}>
+            <Table.Body className="divide-y">
+              {highestWins.map((win, index) => (
+                <Table.Row key={`${win.betId}_${index}`} className="bg-white">
                   <Table.Cell className="whitespace-nowrap ps-6">
                     <div className="flex gap-3 items-center">
                       <img
-                        src={item.img}
-                        alt={`${item.game} icon`}
+                        src={gameIcons[win.game.toLowerCase()]}
+                        alt={`${win.game} icon`}
                         className="h-[40px] w-[40px] rounded-md"
                       />
                       <div className="truncate line-clamp-2 sm:text-wrap max-w-56">
-                        <h6 className="text-sm">{item.game}</h6>
+                        <h6 className="text-sm text-gray-700">{win.game}</h6>
                       </div>
                     </div>
                   </Table.Cell>
                   <Table.Cell>
-                    <p className="text-sm">{item.player}</p>
+                    <p className="text-sm text-gray-700">{win.player}</p>
                   </Table.Cell>
                   <Table.Cell>
                     <Badge className="bg-lightprimary text-primary">
-                      {item.payout}
+                      {win.payout.toFixed(2)}x
                     </Badge>
                   </Table.Cell>
                   <Table.Cell>
-                    <h4>{item.winAmount}</h4>
+                    <h4 className="text-gray-700">${win.winAmount.toLocaleString()}</h4>
                   </Table.Cell>
                 </Table.Row>
               ))}

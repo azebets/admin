@@ -1,18 +1,16 @@
-import { RouterProvider } from "react-router";
-import { Flowbite, ThemeModeScript } from 'flowbite-react';
-import customTheme from './utils/theme/custom-theme';
-import router from "./routes/Router";
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { Toaster } from 'sonner';
+import Router from './routes/Router';
+import { AdminProvider } from './context/AdminContext';
 
+const browserRouter = createBrowserRouter(Router);
 
 function App() {
-
   return (
-    <>
-      <ThemeModeScript />
-      <Flowbite theme={{ theme: customTheme }}>
-      <RouterProvider router={router} />
-      </Flowbite>
-    </>
+    <AdminProvider>
+      <Toaster position="bottom-right" richColors />
+      <RouterProvider router={browserRouter} />
+    </AdminProvider>
   );
 }
 

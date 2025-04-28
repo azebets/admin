@@ -1,8 +1,7 @@
 import React from "react";
 import { ChildItem } from "../Sidebaritems";
-import { Sidebar } from "flowbite-react";
 import { Icon } from "@iconify/react";
-import { Link, useLocation } from "react-router";
+import { Link, useLocation } from "react-router-dom";
 
 
 
@@ -10,40 +9,39 @@ interface NavItemsProps {
   item: ChildItem;
 }
 const NavItems: React.FC<NavItemsProps> = ({ item }) => {
-  const location = useLocation();
-  const pathname = location.pathname;
+  const { pathname } = useLocation();
+  const isActive = item.url === pathname;
 
   return (
-    <>
-      <Sidebar.Item
+    <div 
+      className={`
+        rounded-[5px] transition-all duration-200 
+        ${isActive 
+          ? 'bg-[rgba(203,215,255,0.03)] shadow-[0_4px_12px_0_rgba(0,0,0,0.1)]' 
+          : 'hover:bg-[rgba(203,215,255,0.03)] hover:shadow-[0_4px_12px_0_rgba(0,0,0,0.1)]'
+        }
+        transform hover:-translate-y-[2px] hover:scale-[1.01]
+      `}
+    >
+      <Link
         to={item.url}
-        as={Link}
-        className={`${
-          item.url == pathname
-            ? "text-white bg-primary rounded-xl  hover:text-white hover:bg-primary dark:hover:text-white shadow-btnshdw active"
-            : "text-link bg-transparent group/link "
-        } `}
+        className={`
+          flex items-center px-4 py-3
+          transition-all duration-200
+          ${isActive ? 'text-primary' : 'text-gray-400 hover:text-gray-200'}
+        `}
       >
-        <span className="flex gap-3 align-center items-center">
-          {item.icon ? (
-            <Icon icon={item.icon} className={`${item.color}`} height={18} />
-          ) : (
-            <span
-              className={`${
-                item.url == pathname
-                  ? "dark:bg-white rounded-full mx-1.5 group-hover/link:bg-primary !bg-primary h-[6px] w-[6px]"
-                  : "h-[6px] w-[6px] bg-black/40 dark:bg-white rounded-full mx-1.5 group-hover/link:bg-primary"
-              } `}
-            ></span>
-          )}
-          <span
-            className={`max-w-36 overflow-hidden`}
-          >
-            {item.name}
-          </span>
-        </span> 
-      </Sidebar.Item>
-    </>
+        {item.icon && (
+          <Icon 
+            icon={item.icon} 
+            className={`text-xl mr-3 ${isActive ? 'text-primary' : 'text-gray-400'}`}
+          />
+        )}
+        <span className="text-sm font-medium">
+          {item.name}
+        </span>
+      </Link>
+    </div>
   );
 };
 

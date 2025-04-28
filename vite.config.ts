@@ -1,37 +1,18 @@
-import svgr from '@svgr/rollup';
-import react from '@vitejs/plugin-react';
-import fs from 'fs/promises';
-import { resolve } from 'path';
 import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
+import path from 'path';
 
-// https://vitejs.dev/config/
 export default defineConfig({
+  plugins: [react()],
   resolve: {
     alias: {
-      src: resolve(__dirname, 'src'),
-    },
+      'src': path.resolve(__dirname, './src')
+    }
   },
-  esbuild: {
-    loader: 'tsx',
-    include: /src\/.*\.tsx?$/,
-    exclude: [],
+  server: {
+    port: 3000,
   },
-  optimizeDeps: {
-    esbuildOptions: {
-      plugins: [
-        {
-          name: 'load-js-files-as-tsx',
-          setup(build) {
-            build.onLoad({ filter: /src\\.*\.js$/ }, async (args) => ({
-              loader: 'tsx',
-              contents: await fs.readFile(args.path, 'utf8'),
-            }));
-          },
-        },
-      ],
-    },
-  },
-
-  plugins: [svgr(), react()],
-  base: '/',
+  define: {
+    // If you need to explicitly define any global variables
+  }
 });
