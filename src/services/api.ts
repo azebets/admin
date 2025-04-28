@@ -16,7 +16,7 @@ interface ApiResponse {
 }
 
 const api = axios.create({
-  baseURL: 'http://localhost:3000/api', // adjust this to your backend URL
+  baseURL: 'https://azebets.onrender.com/api', // adjust this to your backend URL
 });
 
 export const userService = {
@@ -48,4 +48,5 @@ export const userService = {
     }
   }
 };
+
 

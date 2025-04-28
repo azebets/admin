@@ -16,10 +16,10 @@ export const getApiUrl = (): string => {
                           window.location.hostname === '127.0.0.1';
         
         return isLocalhost 
-            ? 'http://localhost:8000' 
-            : 'https://rx-casino.onrender.com'; // Replace with your production API URL
+            ? 'https://azebets.onrender.com' 
+            : 'https://azebets.onrender.com';
     }
 
     // Server-side - use environment variable
-    return 'http://localhost:8000' 
+    return 'https://azebets.onrender.com'
 };
