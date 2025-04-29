@@ -1,5 +1,5 @@
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Navbar } from "flowbite-react";
 import { Icon } from "@iconify/react";
 import Notification from "./notification";
@@ -12,10 +12,10 @@ import { Tooltip } from 'flowbite-react';
 import user1 from "/src/assets/images/profile/user-1.jpg";
 
 const Header = () => {
-  const { admin, dispatch } = useAdmin();
+  const {  dispatch } = useAdmin();
   const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
-  const [isSticky, setIsSticky] = useState(false);
+  // const [isSticky, setIsSticky] = useState(false);
 
   const handleLogout = () => {
     removeAuthToken();
@@ -23,14 +23,14 @@ const Header = () => {
     navigate('/auth/login');
   };
 
-  useEffect(() => {
-    const handleScroll = () => {
-      setIsSticky(window.scrollY > 50);
-    };
+  // useEffect(() => {
+  //   const handleScroll = () => {
+  //     setIsSticky(window.scrollY > 50);
+  //   };
 
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  //   window.addEventListener("scroll", handleScroll);
+  //   return () => window.removeEventListener("scroll", handleScroll);
+  // }, []);
 
   return (
     <header className="sticky top-0 z-50 w-full bg-white border-b border-gray-200">
@@ -78,7 +78,6 @@ const Header = () => {
         <Drawer
           open={isOpen}
           onClose={() => setIsOpen(false)}
-          placement="left"
           className="xl:hidden"
         >
           <MobileSidebar />

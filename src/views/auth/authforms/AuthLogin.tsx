@@ -4,7 +4,7 @@ import { toast } from "sonner";
 import { Button, TextInput, Label } from "flowbite-react";
 import { useAdmin } from "src/context/AdminContext";
 import { getApiUrl } from '../../../utils/environment';
-import { setAuthToken } from 'src/utils/auth';
+// import { setAuthToken } from 'src/utils/auth';
 
 const AuthLogin = () => {
   const [email, setEmail] = useState("");

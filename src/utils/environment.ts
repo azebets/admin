@@ -10,16 +10,7 @@ export const isBrowser = (): boolean => {
  */
 export const getApiUrl = (): string => {
     // Check if running in browser
-    if (isBrowser()) {
-        // Check if running locally
-        const isLocalhost = window.location.hostname === 'localhost' || 
-                          window.location.hostname === '127.0.0.1';
-        
-        return isLocalhost 
-            ? 'https://azebets.onrender.com' 
-            : 'https://azebets.onrender.com';
-    }
 
     // Server-side - use environment variable
-    return 'https://azebets.onrender.com'
+    return import.meta.env.DEV ? 'http://localhost:8000' : 'https://azebets.onrender.com'
 };

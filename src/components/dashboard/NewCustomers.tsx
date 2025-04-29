@@ -1,6 +1,5 @@
 
-import React, { useEffect, useState } from 'react';
-import CardBox from '../shared/CardBox';
+import  { useEffect, useState } from 'react';
 import { Progress } from "flowbite-react";
 import { Icon } from "@iconify/react";
 import { api } from 'src/services/api/api';

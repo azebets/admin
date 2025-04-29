@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Badge, Table } from "flowbite-react";
 import SimpleBar from "simplebar-react";
 import { api } from 'src/services/api/api';

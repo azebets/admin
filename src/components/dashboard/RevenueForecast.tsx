@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+
 import React from 'react';
 import { Line } from 'react-chartjs-2';
 import {
@@ -10,7 +10,9 @@ import {
   Title,
   Tooltip,
   Legend,
-  Filler
+  Filler,
+  ChartOptions,
+  ChartData
 } from 'chart.js';
 
 ChartJS.register(
@@ -32,7 +34,7 @@ interface RevenueForecastProps {
 }
 
 export const RevenueForecast: React.FC<RevenueForecastProps> = ({ ggrData }) => {
-  const data = {
+  const data: ChartData<'line'> = {
     labels: ggrData.map(item => {
       const date = new Date(item.date);
       return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
@@ -49,7 +51,7 @@ export const RevenueForecast: React.FC<RevenueForecastProps> = ({ ggrData }) => 
     ]
   };
 
-  const options = {
+  const options: ChartOptions<'line'> = {
     responsive: true,
     plugins: {
       legend: {
@@ -61,7 +63,7 @@ export const RevenueForecast: React.FC<RevenueForecastProps> = ({ ggrData }) => 
         color: '#374151',
         font: {
           size: 16,
-          weight: 'bold'
+          weight: 'bold',
         }
       },
     },
@@ -69,7 +71,9 @@ export const RevenueForecast: React.FC<RevenueForecastProps> = ({ ggrData }) => 
       y: {
         beginAtZero: true,
         ticks: {
-          callback: (value: number) => `$${value.toLocaleString()}`
+          callback: function(value) {
+            return `$${value.toLocaleString()}`;
+          }
         }
       },
       x: {
@@ -80,7 +84,7 @@ export const RevenueForecast: React.FC<RevenueForecastProps> = ({ ggrData }) => 
     },
     interaction: {
       intersect: false,
-      mode: 'index' as const,
+      mode: 'index',
     }
   };
 

@@ -1,5 +1,5 @@
-import { Sidebar } from 'flowbite-react';
-import React from 'react';
+// import { Sidebar } from 'flowbite-react';
+// import React from 'react';
 import SimpleBar from 'simplebar-react';
 import 'simplebar-react/dist/simplebar.min.css';
 import FullLogo from '../shared/logo/FullLogo';

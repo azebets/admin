@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { getApiUrl } from '../../utils/environment';
 import { getAuthToken } from '../../utils/auth';
+import { UserData } from '../../types/user';
 
 const api = axios.create({
     baseURL: getApiUrl()
@@ -58,6 +59,8 @@ export const userService = {
         }
     },
 };
+
+
 
 
 

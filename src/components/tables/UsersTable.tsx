@@ -22,7 +22,6 @@ const UsersTable = () => {
     const [users, setUsers] = useState<User[]>([]);
     const [currentPage, setCurrentPage] = useState(1);
     const [totalPages, setTotalPages] = useState(1);
-    const [isLoading, setIsLoading] = useState(false);
     const [selectedUser, setSelectedUser] = useState<string | null>(null);
     const [isDetailsModalOpen, setIsDetailsModalOpen] = useState(false);
     const [isEditModalOpen, setIsEditModalOpen] = useState(false);
@@ -32,7 +31,6 @@ const UsersTable = () => {
     };
 
     const fetchUsers = async (page: number) => {
-        setIsLoading(true);
         try {
             const response = await userService.getUsers(page);
             setUsers(response.data.users);
@@ -40,8 +38,6 @@ const UsersTable = () => {
             setCurrentPage(response.data.currentPage);
         } catch (error) {
             toast.error('Failed to fetch users');
-        } finally {
-            setIsLoading(false);
         }
     };
 
@@ -151,7 +147,6 @@ const UsersTable = () => {
                         </Table>
                     </div>
 
-                    {/* Pagination controls */}
                     {totalPages > 1 && (
                         <div className="flex justify-center mt-6">
                             {/* Add your pagination component here */}
